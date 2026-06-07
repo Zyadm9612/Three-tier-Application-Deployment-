@@ -1,20 +1,8 @@
-# Use the official Node.js 14 image as a base image
-FROM node:14
-
-# Set the working directory in the container
-WORKDIR /usr/src/app
-
-# Copy the package.json and package-lock.json files to the container
+FROM node:26.3.0-alpine
+WORKDIR /app
 COPY package*.json ./
-
-# Install the application's dependencies inside the container
-RUN npm install
-
-# Copy the rest of the application code to the container
-COPY . .
-
-# Expose Port to the container
+RUN npm install 
+RUN npm install && npm update serve-static send qs path-to-regexp mpath mongoose
+COPY . . 
 EXPOSE 8080
-
-# Specify the command to run when the container starts
-CMD [ "node", "index.js" ]
+CMD ["node" , "index.js"] 
